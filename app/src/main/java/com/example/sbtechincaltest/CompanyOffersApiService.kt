@@ -1,5 +1,6 @@
 package com.example.sbtechincaltest
 
+import com.example.sbtechincaltest.models.CompanyOffer
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -10,10 +11,9 @@ import retrofit2.http.Query
  To get a specific album pass ?albumId=
  */
 interface CompanyOffersApiService {
-    @GET("photos") // This will be appended after the base URL
+    @GET("photos")
     suspend fun getOffers(): List<CompanyOffer>
 
-    // Since we need to query a specific Id this function has take in an input
     @GET("photos")
     suspend fun getOffer(@Query("id") id: Int): Array<CompanyOffer>
 }

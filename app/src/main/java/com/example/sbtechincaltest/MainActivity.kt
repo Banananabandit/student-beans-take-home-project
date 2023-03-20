@@ -1,7 +1,6 @@
 package com.example.sbtechincaltest
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
@@ -17,13 +16,14 @@ import androidx.navigation.navDeepLink
 import com.example.sbtechincaltest.ui.theme.StudentBeansAppTheme
 
 class MainActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             StudentBeansAppTheme {
                 Surface(color = MaterialTheme.colors.background) {
                     CompanyOffersApp()
+//                    LoginScreen()
                 }
             }
         }
@@ -33,7 +33,14 @@ class MainActivity : ComponentActivity() {
 @Composable
 private fun CompanyOffersApp(){
     val navController = rememberNavController()
-    NavHost(navController, startDestination = "offers") {
+
+    NavHost(navController = navController, startDestination = "login") {//offers
+        composable(
+            route = "login"
+        ) {
+            LoginScreen(navController)
+
+        }
         composable(
             route = "offers"
         ) {

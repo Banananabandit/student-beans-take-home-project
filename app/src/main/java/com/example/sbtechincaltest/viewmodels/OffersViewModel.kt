@@ -1,9 +1,11 @@
-package com.example.sbtechincaltest
+package com.example.sbtechincaltest.viewmodels
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.sbtechincaltest.OffersRepository
+import com.example.sbtechincaltest.OffersScreenState
 import kotlinx.coroutines.*
 
 class OffersViewModel(): ViewModel() {

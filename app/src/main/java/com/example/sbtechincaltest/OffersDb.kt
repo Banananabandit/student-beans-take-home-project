@@ -4,10 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.sbtechincaltest.models.CompanyOffer
 
 @Database(
     entities = [CompanyOffer::class],
-    version = 2,
+    version = 4,
     exportSchema = false)
 abstract class OffersDb : RoomDatabase() {
     abstract val dao: OffersDao

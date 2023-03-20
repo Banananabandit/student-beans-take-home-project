@@ -1,4 +1,4 @@
-package com.example.sbtechincaltest
+package com.example.sbtechincaltest.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -17,6 +17,12 @@ data class CompanyOffer(
     val description: String,
 
     @ColumnInfo(name = "is_favourite")
-    val isFavorite: Boolean = false
+    val isFavorite: Boolean = false,
+
+    @SerializedName("thumbnailUrl")
+    val thumbnailUrl: String,
+
+    @SerializedName("url")
+    val imageUrl: String
 )
 

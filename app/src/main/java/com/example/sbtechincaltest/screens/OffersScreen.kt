@@ -1,6 +1,5 @@
 package com.example.sbtechincaltest
 
-import android.graphics.Paint.Align
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -14,7 +13,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material.icons.filled.Place
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,7 +20,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
+import com.example.sbtechincaltest.models.CompanyOffer
 import com.example.sbtechincaltest.ui.theme.StudentBeansAppTheme
+import com.example.sbtechincaltest.viewmodels.OffersViewModel
 
 @Composable
 fun OffersScreen(onItemClick: (id: Int) -> Unit = {}) {
@@ -67,15 +68,23 @@ fun OfferItem(item: CompanyOffer,
             .clickable { onItemClick(item.id) }
     )
     {
-        Row(verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(8.dp)) {
-            CompanyIcon(
-                Icons.Filled.Place,
-                Modifier.weight(0.15f))
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            AsyncImage(
+                item.thumbnailUrl,
+                "thumbnail",
+                Modifier
+                    .weight(0.25f)
+                    .requiredSize(100.dp)
+            )
             CompanyOfferDetails(
-                Modifier.weight(0.7f),
+                Modifier
+                    .weight(0.60f)
+                    .padding(16.dp),
                 item.description)
-            CompanyIcon(icon, Modifier.weight(0.15f)) {
+            CompanyIcon(icon, Modifier
+                .weight(0.15f)
+                .align(Alignment.Top)
+                .offset(y = 8.dp)) {
                 onFavoriteClick(item.id, item.isFavorite)
             }
         }
@@ -83,9 +92,9 @@ fun OfferItem(item: CompanyOffer,
 }
 
 @Composable
-fun CompanyIcon(icon: ImageVector, modifier: Modifier, onClick: () -> Unit = {}) { // Unit = {} is a default empty function unless provided the actual function
+fun CompanyIcon(icon: ImageVector, modifier: Modifier, onClick: () -> Unit = {}) {
     Image(imageVector = icon,
-        contentDescription = "Restaurant icon",
+        contentDescription = "offer icon",
         modifier = modifier
             .padding(8.dp)
             .clickable(indication = null,

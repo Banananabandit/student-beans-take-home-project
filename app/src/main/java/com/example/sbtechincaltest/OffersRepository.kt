@@ -1,5 +1,7 @@
 package com.example.sbtechincaltest
 
+import com.example.sbtechincaltest.models.CompanyOffer
+import com.example.sbtechincaltest.models.PartialOffer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException

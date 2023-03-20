@@ -1,6 +1,8 @@
 package com.example.sbtechincaltest
 
 import androidx.room.*
+import com.example.sbtechincaltest.models.CompanyOffer
+import com.example.sbtechincaltest.models.PartialOffer
 
 @Dao
 interface OffersDao {
@@ -16,7 +18,7 @@ interface OffersDao {
     @Update(entity = CompanyOffer::class)
     suspend fun updateAll(partialOffers: List<PartialOffer>)
 
-    // This guy can be used for the bottom nav just to display the favourites
+    // This guy can be used for the bottom nav just to display the selected favourites
     @Query("SELECT * FROM offers WHERE is_favourite = 1")
     suspend fun getAllFavourited(): List<CompanyOffer>
 }

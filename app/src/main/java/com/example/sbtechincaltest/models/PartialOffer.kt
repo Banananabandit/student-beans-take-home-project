@@ -1,4 +1,4 @@
-package com.example.sbtechincaltest
+package com.example.sbtechincaltest.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
