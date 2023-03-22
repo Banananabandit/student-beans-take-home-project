@@ -7,13 +7,16 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
+import com.example.sbtechincaltest.screens.LoginScreen
 import com.example.sbtechincaltest.ui.theme.StudentBeansAppTheme
+import com.example.sbtechincaltest.viewmodels.OffersViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,50 +26,11 @@ class MainActivity : ComponentActivity() {
             StudentBeansAppTheme {
                 Surface(color = MaterialTheme.colors.background) {
                     CompanyOffersApp()
-//                    LoginScreen()
                 }
             }
         }
     }
 }
 
-@Composable
-private fun CompanyOffersApp(){
-    val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "login") {//offers
-        composable(
-            route = "login"
-        ) {
-            LoginScreen(navController)
-
-        }
-        composable(
-            route = "offers"
-        ) {
-            OffersScreen { id ->
-                navController.navigate("offers/$id")
-            }
-        }
-        composable(
-            route = "offers/{offer_id}",
-            arguments = listOf(navArgument("offer_id") {
-                type = NavType.IntType
-            }),
-            deepLinks = listOf(navDeepLink {
-                uriPattern = "www.studentbeans.hello.com/{offer_id}"
-            })
-        ) {
-            OfferDetailsScreen()
-        }
-    }
-}
-
-@Preview
-@Composable
-fun DefaultPreview() {
-    StudentBeansAppTheme {
-        OffersScreen()
-    }
-}
 

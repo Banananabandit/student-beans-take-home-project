@@ -1,4 +1,4 @@
-package com.example.sbtechincaltest
+package com.example.sbtechincaltest.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -19,23 +19,32 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.sbtechincaltest.R
 import com.example.sbtechincaltest.ui.theme.StudentBeansTeal
 import com.example.sbtechincaltest.viewmodels.LoginScreenViewModel
 
 @Composable
-fun LoginScreen(navController: NavController) {
-    val viewModel : LoginScreenViewModel = viewModel()
+fun LoginScreen(
+    taskId: String,
+    popUpScreen: () -> Unit,
+    viewModel: LoginScreenViewModel = hiltViewModel() ) {
+
+
     val focusManager = LocalFocusManager.current
     var isPasswordVisible: Boolean by remember { mutableStateOf(false) }
 
+    // This will go to ViewModel
     var email by remember {
         mutableStateOf("")
     }
     var password by remember {
         mutableStateOf("")
     }
+
+
     Column(
         modifier = Modifier
             .background(color = Color.White)
@@ -62,6 +71,7 @@ fun LoginScreen(navController: NavController) {
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.fillMaxHeight()
         ) {
+            // This will be the email field call
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
@@ -83,6 +93,8 @@ fun LoginScreen(navController: NavController) {
                     )
                 })
             )
+
+            // This will be the password field
             OutlinedTextField(value = password,
                 onValueChange = { password = it },
                 label = { Text("Password") },
@@ -119,13 +131,15 @@ fun LoginScreen(navController: NavController) {
                     .fillMaxHeight()
                     .padding(bottom = 32.dp)
             ) {
+
+                // Its own button
                 Button(
                     onClick = {
-                              viewModel.authenticateUser(
-                                  email,
-                                  password,
-                                  navController
-                              )},
+//                              viewModel.authenticateUser(
+//                                  email,
+//                                  password
+//                              )
+                              },
                     enabled = true,
                     colors = ButtonDefaults.buttonColors(StudentBeansTeal),
                     modifier = Modifier

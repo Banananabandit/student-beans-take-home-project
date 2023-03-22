@@ -7,4 +7,3 @@ data class OffersScreenState(
     val isLoading: Boolean,
     val error: String? = null
 )
-// Just a test bro. Still cant figure out why this wouldnt upload to github yesterday
