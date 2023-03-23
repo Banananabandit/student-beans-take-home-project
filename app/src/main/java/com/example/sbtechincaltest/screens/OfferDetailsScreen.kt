@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
+import com.example.sbtechincaltest.screens.CompanyOfferDetails
 import com.example.sbtechincaltest.viewmodels.OfferDetailsViewModel
 
 @Composable

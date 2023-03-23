@@ -7,12 +7,12 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavType
+import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import androidx.navigation.navDeepLink
+import com.example.sbtechincaltest.screens.LoginScreen
+import com.example.sbtechincaltest.screens.OffersScreen
 import com.example.sbtechincaltest.ui.theme.StudentBeansAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,7 +23,6 @@ class MainActivity : ComponentActivity() {
             StudentBeansAppTheme {
                 Surface(color = MaterialTheme.colors.background) {
                     CompanyOffersApp()
-//                    LoginScreen()
                 }
             }
         }
@@ -34,7 +33,7 @@ class MainActivity : ComponentActivity() {
 private fun CompanyOffersApp(){
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "login") {//offers
+    NavHost(navController = navController, startDestination = "login") {
         composable(
             route = "login"
         ) {
@@ -61,6 +60,7 @@ private fun CompanyOffersApp(){
         }
     }
 }
+
 
 @Preview
 @Composable

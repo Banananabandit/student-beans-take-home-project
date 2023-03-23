@@ -18,7 +18,7 @@ interface OffersDao {
     @Update(entity = CompanyOffer::class)
     suspend fun updateAll(partialOffers: List<PartialOffer>)
 
-    // This guy can be used for the bottom nav just to display the selected favourites
+    //TODO: Use this for the bottom nav bar "favourited" tab
     @Query("SELECT * FROM offers WHERE is_favourite = 1")
     suspend fun getAllFavourited(): List<CompanyOffer>
 }
