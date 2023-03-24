@@ -7,7 +7,10 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -26,9 +29,10 @@ import com.example.sbtechincaltest.viewmodels.LoginScreenViewModel
 @Composable
 fun LoginScreen(
     navController: NavController,
-    viewModel: LoginScreenViewModel = viewModel()
+    viewModel: LoginScreenViewModel = viewModel(),
 ) {
     val uiState by viewModel.uiState
+    val focusManager = LocalFocusManager.current
 
     Column(
         modifier = Modifier
@@ -37,28 +41,15 @@ fun LoginScreen(
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Top
     ) {
-        Text(
-            text = "Welcome back",
-            fontWeight = FontWeight.Bold,
-            fontSize = 32.sp,
-            modifier = Modifier
-                .padding(top = 16.dp)
-        )
-        Text(
-            text = "Login to your Student Beans account",
-            fontWeight = FontWeight.Bold,
-            fontSize = 16.sp,
-            modifier = Modifier.padding(top = 8.dp, bottom = 16.dp)
-        )
+        GreetingMessage()
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.fillMaxHeight()
         ) {
+            EmailField(uiState.email, viewModel::onEmailChange, focusManager)
 
-            EmailField(uiState.email, viewModel::onEmailChange)
-
-            PasswordField(uiState.password, viewModel::onPasswordChange)
+            PasswordField(uiState.password, viewModel::onPasswordChange, focusManager)
 
             Column(
                 verticalArrangement = Arrangement.Bottom,
@@ -73,47 +64,37 @@ fun LoginScreen(
 }
 
 @Composable
-fun EmailField(value: String, oneNewValue: (String) -> Unit) {
+fun EmailField(value: String, oneNewValue: (String) -> Unit, focusManager: FocusManager) {
     OutlinedTextField(
         value = value,
         onValueChange = { oneNewValue(it) },
         label = { Text("Email") },
         singleLine = true,
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = StudentBeansTeal,
-            focusedLabelColor = StudentBeansTeal,
-            cursorColor = Color.Black,
-        ),
         modifier = Modifier.fillMaxWidth(),
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Email,
             imeAction = ImeAction.Next
         ),
-        keyboardActions = KeyboardActions(onNext = {
+        keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Down)
 
         })
     )
 }
 
 @Composable
-fun PasswordField(value: String, oneNewValue: (String) -> Unit) {
+fun PasswordField(value: String, oneNewValue: (String) -> Unit, focusManager: FocusManager) {
     var isPasswordVisible = false
     OutlinedTextField(
         value = value,
         onValueChange = { oneNewValue(it) },
         label = { Text("Password") },
         singleLine = true,
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = StudentBeansTeal,
-            focusedLabelColor = StudentBeansTeal,
-            cursorColor = Color.Black
-        ),
         modifier = Modifier.fillMaxWidth(),
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Password,
             imeAction = ImeAction.Done
         ),
-        keyboardActions = KeyboardActions(onDone = {  }),
+        keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
         visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
         trailingIcon = {
             val image = if (isPasswordVisible)
@@ -130,7 +111,6 @@ fun PasswordField(value: String, oneNewValue: (String) -> Unit) {
         }
     )
 }
-
 @Composable
 fun SignInButton(action: () -> Unit) {
     Button(
@@ -146,5 +126,22 @@ fun SignInButton(action: () -> Unit) {
             color = Color.White
         )
     }
+}
+
+@Composable
+fun GreetingMessage() {
+    Text(
+        text = "Welcome back",
+        fontWeight = FontWeight.Bold,
+        fontSize = 32.sp,
+        modifier = Modifier
+            .padding(top = 16.dp)
+    )
+    Text(
+        text = "Login to your Student Beans account",
+        fontWeight = FontWeight.Bold,
+        fontSize = 16.sp,
+        modifier = Modifier.padding(top = 8.dp, bottom = 16.dp)
+    )
 }
 
