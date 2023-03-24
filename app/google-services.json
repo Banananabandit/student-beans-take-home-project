@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "665993005475",
+    "project_id": "studentbeanstakehome",
+    "storage_bucket": "studentbeanstakehome.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:665993005475:android:d563622041f9488937f216",
+        "android_client_info": {
+          "package_name": "com.example.sbtechincaltest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "665993005475-dtjvg1lm8iq2jaf93g3qtcrh8jibqbue.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEvpxJgjqHM1QmMOiodtAomsOldrw-0H4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "665993005475-dtjvg1lm8iq2jaf93g3qtcrh8jibqbue.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
