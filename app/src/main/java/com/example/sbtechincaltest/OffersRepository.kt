@@ -20,17 +20,16 @@ class OffersRepository {
         .create(CompanyOffersApiService::class.java)
     private var offersDao = OffersDb.getDaoInstance(OffersApplication.getAppContext())
 
-    suspend fun toggleFavouriteOffer(id: Int, oldValue: Boolean) =
+    suspend fun toggleFavouriteOffer(id: Int, value: Boolean) =
         withContext(Dispatchers.IO) {
-            offersDao.update(PartialOffer(id = id, isFavourite = !oldValue))
-            offersDao.getAll()
+            offersDao.update(PartialOffer(id = id, isFavourite = value))
         }
     /*
 * Whenever we call this fun, the dispatcher is going to get switched to IO. This way we dont have
 * to worry about which dispatchers our caller functions are using. So in a way it acts as an intermediary
 * between callers and the emitter.
 * */
-    suspend fun getAllOffers(): List<CompanyOffer> {
+    suspend fun loadOffers() {
         return withContext(Dispatchers.IO) {
             try {
                 refreshCache()
@@ -45,6 +44,12 @@ class OffersRepository {
                     else -> throw e
                 }
             }
+        }
+    }
+
+    // This method will only return offers from the cache
+    suspend fun getOffers() : List<CompanyOffer> {
+        return withContext(Dispatchers.IO) {
             return@withContext offersDao.getAll()
         }
     }
@@ -59,4 +64,5 @@ class OffersRepository {
             }
         )
     }
+
 }

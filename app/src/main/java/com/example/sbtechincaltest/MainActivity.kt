@@ -22,7 +22,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             StudentBeansAppTheme {
                 Surface(color = MaterialTheme.colors.background) {
-                    CompanyOffersApp()
+//                    CompanyOffersApp()
+                    OffersScreen()
                 }
             }
         }
