@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.sbtechincaltest.screens.LoginScreen
+import com.example.sbtechincaltest.screens.OfferDetailsScreen
 import com.example.sbtechincaltest.screens.OffersScreen
 import com.example.sbtechincaltest.ui.theme.StudentBeansAppTheme
 

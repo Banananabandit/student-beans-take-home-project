@@ -1,4 +1,4 @@
-package com.example.sbtechincaltest
+package com.example.sbtechincaltest.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,6 +22,7 @@ fun OfferDetailsScreen() {
                 .fillMaxSize()
                 .padding(16.dp)
             ) {
+            //TODO: FIX the koin image
             AsyncImage(item.imageUrl,
                 "imageUrl full size ",
                 Modifier.padding(

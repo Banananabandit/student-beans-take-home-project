@@ -1,7 +1,7 @@
 package com.example.sbtechincaltest
 
 import com.example.sbtechincaltest.models.CompanyOffer
-import com.example.sbtechincaltest.models.PartialOffer
+import com.example.sbtechincaltest.models.LocalPartialOffer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -22,7 +22,7 @@ class OffersRepository {
 
     suspend fun toggleFavouriteOffer(id: Int, value: Boolean) =
         withContext(Dispatchers.IO) {
-            offersDao.update(PartialOffer(id = id, isFavourite = value))
+            offersDao.update(LocalPartialOffer(id = id, isFavourite = value))
         }
     /*
 * Whenever we call this fun, the dispatcher is going to get switched to IO. This way we dont have
@@ -47,20 +47,28 @@ class OffersRepository {
         }
     }
 
-    // This method will only return offers from the cache
+    // Now to make this work we need to map local offers to company offers
     suspend fun getOffers() : List<CompanyOffer> {
         return withContext(Dispatchers.IO) {
-            return@withContext offersDao.getAll()
+            return@withContext offersDao.getAll().map {
+                CompanyOffer(it.id, it.description, it.isFavorite, it.thumbnailUrl, it.imageUrl)
+            }
         }
     }
 
     private suspend fun refreshCache() {
         val remoteOffers = restInterface.getOffers()
         val favouriteOffers = offersDao.getAllFavourited()
-        offersDao.addAll(remoteOffers)
+        offersDao.addAll(remoteOffers.map {
+            LocalOffers(
+                it.id,
+                it.description,
+                false
+            )
+        })
         offersDao.updateAll(
             favouriteOffers.map {
-                PartialOffer(it.id, true)
+                LocalPartialOffer(it.id, true)
             }
         )
     }

@@ -70,6 +70,7 @@ fun OfferItem(item: CompanyOffer,
     {
         Row(verticalAlignment = Alignment.CenterVertically) {
             AsyncImage(
+                //TODO Fix our model to take in images
                 item.thumbnailUrl,
                 "thumbnail",
                 Modifier

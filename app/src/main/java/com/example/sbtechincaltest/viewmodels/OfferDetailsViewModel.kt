@@ -31,7 +31,14 @@ class OfferDetailsViewModel(private val stateHandle: SavedStateHandle): ViewMode
     }
     private suspend fun getRemoteOfferDetails(id: Int): CompanyOffer {
         return withContext(Dispatchers.IO) {
-            restInterface.getOffer(id).first()
+            restInterface.getOffer(id).first().let {
+                CompanyOffer(
+                    id = it.id,
+                    description = it.description,
+                    imageUrl = it.imageUrl,
+                    thumbnailUrl = it.thumbnailUrl
+                )
+            }
         }
     }
 }

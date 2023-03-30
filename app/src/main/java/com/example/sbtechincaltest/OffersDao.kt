@@ -2,23 +2,23 @@ package com.example.sbtechincaltest
 
 import androidx.room.*
 import com.example.sbtechincaltest.models.CompanyOffer
-import com.example.sbtechincaltest.models.PartialOffer
+import com.example.sbtechincaltest.models.LocalPartialOffer
 
 @Dao
 interface OffersDao {
     @Query("SELECT * FROM offers")
-    suspend fun getAll(): List<CompanyOffer>
+    suspend fun getAll(): List<LocalOffers>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addAll(offers: List<CompanyOffer>)
+    suspend fun addAll(offers: List<LocalOffers>)
 
-    @Update(entity = CompanyOffer::class)
-    suspend fun update(partialOffer: PartialOffer)
+    @Update(entity = LocalOffers::class)
+    suspend fun update(localPartialOffer: LocalPartialOffer)
 
-    @Update(entity = CompanyOffer::class)
-    suspend fun updateAll(partialOffers: List<PartialOffer>)
+    @Update(entity = LocalOffers::class)
+    suspend fun updateAll(localPartialOffers: List<LocalPartialOffer>)
 
     //TODO: Use this for the bottom nav bar "favourited" tab
     @Query("SELECT * FROM offers WHERE is_favourite = 1")
-    suspend fun getAllFavourited(): List<CompanyOffer>
+    suspend fun getAllFavourited(): List<LocalOffers>
 }

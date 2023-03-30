@@ -12,8 +12,8 @@ import retrofit2.http.Query
  */
 interface CompanyOffersApiService {
     @GET("photos")
-    suspend fun getOffers(): List<CompanyOffer>
+    suspend fun getOffers(): List<RemoteOffers>
 
     @GET("photos")
-    suspend fun getOffer(@Query("id") id: Int): Array<CompanyOffer>
+    suspend fun getOffer(@Query("id") id: Int): Array<RemoteOffers>
 }

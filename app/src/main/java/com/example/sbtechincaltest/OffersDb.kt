@@ -7,8 +7,8 @@ import androidx.room.RoomDatabase
 import com.example.sbtechincaltest.models.CompanyOffer
 
 @Database(
-    entities = [CompanyOffer::class],
-    version = 4,
+    entities = [LocalOffers::class],
+    version = 5,
     exportSchema = false)
 abstract class OffersDb : RoomDatabase() {
     abstract val dao: OffersDao
